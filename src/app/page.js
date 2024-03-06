@@ -4,26 +4,26 @@ import { Editor } from '@monaco-editor/react';
 import { analizar } from './module/generator.js';
 import './EditorDeCodigoPage.css';
 
-
 const EditorDeCodigoPage = () => {
   const [codigo, setCodigo] = useState("");
   const [resultado, setResultado] = useState("");
 
-
+  //Funcion para revisar el valor del codigo
   const handleChange = (value) => {
     setCodigo(value);
   };
- 
+
+  //Funcion para evaluar el analisis del codigo
   const handleAnalizar = () => {
     const result = analizar(codigo);
-
     setResultado(result);
   };
-  
+
+  //Funcion para limpiar la pagina
   const handleLimpiar = () => {
+    setCodigo("");
     setResultado("");
   };
-
 
   return (
     <div className="editor-container">
@@ -33,6 +33,7 @@ const EditorDeCodigoPage = () => {
           theme='vs-dark'
           height="500px"
           color='blue'
+          value={codigo}
           onChange={handleChange}
           className="codigo-editor"
           options={{
@@ -45,7 +46,7 @@ const EditorDeCodigoPage = () => {
               horizontal: 'visible',
               useShadows: false,
               verticalScrollbarSize: 8,
-              horizontalScrollbarSize: 8
+              horizontalScrollbarSize: 8,
             },
           }}
         />
