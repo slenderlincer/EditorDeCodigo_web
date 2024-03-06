@@ -1,0 +1,12 @@
+INSERT=1
+CODE=2
+ID=3
+INT=4
+FLOAT=5
+CHAR=6
+ID_invalido=7
+SEMI=8
+WS=9
+'iniciar'=1
+'codigo'=2
+';'=8

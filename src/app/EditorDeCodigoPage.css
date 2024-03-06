@@ -1,0 +1,67 @@
+/* EditorDeCodigoPage.css */
+body {
+  background-color: #282c34; /* Color de fondo similar al de Visual Studio Code */
+  font-family: Arial, sans-serif; /* Familia de fuentes predeterminada */
+  color: #ffffff; /* Color del texto principal */
+}
+.editor-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.editor-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.editor-wrapper {
+  margin-bottom: 20px;
+}
+
+.codigo-editor {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.analizar-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.limpiar-button{
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.resultado-container {
+  margin-top: 20px;
+}
+
+.resultado-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.codigo-textarea, .resultado-textarea {
+  background-color: #333;
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: vertical;
+  overflow: auto;
+}

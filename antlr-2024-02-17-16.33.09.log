@@ -1,0 +1,14 @@
+2024-02-17 16:33:09:577 grammar LogManager.java:25 before: (COMBINED_GRAMMAR CodeFile (RULES (RULE start (BLOCK (ALT INSERT CODE '{' content '}'))) (RULE content (BLOCK (ALT (* (BLOCK (ALT declaraciones)))))) (RULE declaraciones (BLOCK (ALT tipo ID SEMI))) (RULE tipo (BLOCK (ALT MARGIT) (ALT RADAHN) (ALT GODRICK))) (RULE INSERT (BLOCK (ALT 'iniciar'))) (RULE CODE (BLOCK (ALT 'codigo'))) (RULE MARGIT (BLOCK (ALT 'margit'))) (RULE RADAHN (BLOCK (ALT 'radahn'))) (RULE GODRICK (BLOCK (ALT 'godrick'))) (RULE ID (BLOCK (ALT [a-zA-Z_\-+] (* (BLOCK (ALT [a-zA-Z0-9_\-+])))))) (RULE SEMI (BLOCK (ALT ';'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip)))))
+2024-02-17 16:33:09:588 grammar LogManager.java:25 after: (COMBINED_GRAMMAR CodeFile (RULES (RULE start (BLOCK (ALT INSERT CODE '{' content '}'))) (RULE content (BLOCK (ALT (* (BLOCK (ALT declaraciones)))))) (RULE declaraciones (BLOCK (ALT tipo ID SEMI))) (RULE tipo (BLOCK (ALT MARGIT) (ALT RADAHN) (ALT GODRICK))) (RULE INSERT (BLOCK (ALT 'iniciar'))) (RULE CODE (BLOCK (ALT 'codigo'))) (RULE MARGIT (BLOCK (ALT 'margit'))) (RULE RADAHN (BLOCK (ALT 'radahn'))) (RULE GODRICK (BLOCK (ALT 'godrick'))) (RULE ID (BLOCK (ALT [a-zA-Z_\-+] (* (BLOCK (ALT [a-zA-Z0-9_\-+])))))) (RULE SEMI (BLOCK (ALT ';'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip)))))
+2024-02-17 16:33:09:608 grammar LogManager.java:25 after extract implicit lexer =(COMBINED_GRAMMAR CodeFile (RULES (RULE start (BLOCK (ALT INSERT CODE '{' content '}'))) (RULE content (BLOCK (ALT (* (BLOCK (ALT declaraciones)))))) (RULE declaraciones (BLOCK (ALT tipo ID SEMI))) (RULE tipo (BLOCK (ALT MARGIT) (ALT RADAHN) (ALT GODRICK)))))
+2024-02-17 16:33:09:608 grammar LogManager.java:25 lexer =(LEXER_GRAMMAR CodeFileLexer (RULES (RULE T__0 (BLOCK (ALT '{'))) (RULE T__1 (BLOCK (ALT '}'))) (RULE INSERT (BLOCK (ALT 'iniciar'))) (RULE CODE (BLOCK (ALT 'codigo'))) (RULE MARGIT (BLOCK (ALT 'margit'))) (RULE RADAHN (BLOCK (ALT 'radahn'))) (RULE GODRICK (BLOCK (ALT 'godrick'))) (RULE ID (BLOCK (ALT [a-zA-Z_\-+] (* (BLOCK (ALT [a-zA-Z0-9_\-+])))))) (RULE SEMI (BLOCK (ALT ';'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip)))))
+2024-02-17 16:33:09:782 semantics LogManager.java:25 tokens={EOF=-1, T__0=1, T__1=2, INSERT=3, CODE=4, MARGIT=5, RADAHN=6, GODRICK=7, ID=8, SEMI=9, WS=10}
+2024-02-17 16:33:09:782 semantics LogManager.java:25 strings={'{'=1, '}'=2, 'iniciar'=3, 'codigo'=4, 'margit'=5, 'radahn'=6, 'godrick'=7, ';'=9}
+2024-02-17 16:33:09:788 LL1 LogManager.java:25 
+DECISION 0 in rule content
+2024-02-17 16:33:09:788 LL1 LogManager.java:25 look=[{5..7}, 2]
+2024-02-17 16:33:09:788 LL1 LogManager.java:25 LL(1)? true
+2024-02-17 16:33:09:789 LL1 LogManager.java:25 
+DECISION 1 in rule tipo
+2024-02-17 16:33:09:789 LL1 LogManager.java:25 look=[5, 6, 7]
+2024-02-17 16:33:09:789 LL1 LogManager.java:25 LL(1)? true

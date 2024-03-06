@@ -1,0 +1,4 @@
+2024-02-13 11:40:24:183 grammar LogManager.java:25 before: (COMBINED_GRAMMAR CodeFile RULES)
+2024-02-13 11:40:24:191 grammar LogManager.java:25 after: (COMBINED_GRAMMAR CodeFile RULES)
+2024-02-13 11:40:24:207 grammar LogManager.java:25 after extract implicit lexer =(COMBINED_GRAMMAR CodeFile RULES)
+2024-02-13 11:40:24:207 grammar LogManager.java:25 lexer =(LEXER_GRAMMAR CodeFileLexer RULES)

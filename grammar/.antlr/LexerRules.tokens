@@ -1,0 +1,9 @@
+INSERT=1
+INT=2
+CODE=3
+ID=4
+SEMI=5
+WS=6
+'iniciar'=1
+'codigo'=3
+';'=5
