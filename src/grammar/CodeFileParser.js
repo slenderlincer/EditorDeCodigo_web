@@ -9,19 +9,19 @@ const serializedATN = [4,1,20,85,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
 1,3,3,3,46,8,3,1,4,1,4,1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,3,6,61,
 8,6,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,72,8,8,1,8,1,8,1,8,1,8,1,8,1,
 8,5,8,80,8,8,10,8,12,8,83,9,8,1,8,0,1,16,9,0,2,4,6,8,10,12,14,16,0,3,1,0,
-6,8,1,0,10,11,1,0,12,13,85,0,18,1,0,0,0,2,27,1,0,0,0,4,33,1,0,0,0,6,45,1,
+6,8,1,0,16,17,1,0,18,19,85,0,18,1,0,0,0,2,27,1,0,0,0,4,33,1,0,0,0,6,45,1,
 0,0,0,8,47,1,0,0,0,10,52,1,0,0,0,12,60,1,0,0,0,14,62,1,0,0,0,16,71,1,0,0,
-0,18,19,5,15,0,0,19,20,5,17,0,0,20,21,5,1,0,0,21,22,3,2,1,0,22,23,5,2,0,
+0,18,19,5,10,0,0,19,20,5,12,0,0,20,21,5,1,0,0,21,22,3,2,1,0,22,23,5,2,0,
 0,23,1,1,0,0,0,24,26,3,4,2,0,25,24,1,0,0,0,26,29,1,0,0,0,27,25,1,0,0,0,27,
 28,1,0,0,0,28,3,1,0,0,0,29,27,1,0,0,0,30,34,3,6,3,0,31,34,3,8,4,0,32,34,
 3,10,5,0,33,30,1,0,0,0,33,31,1,0,0,0,33,32,1,0,0,0,34,5,1,0,0,0,35,36,3,
-14,7,0,36,37,5,18,0,0,37,38,5,19,0,0,38,46,1,0,0,0,39,40,3,14,7,0,40,41,
-5,18,0,0,41,42,5,3,0,0,42,43,3,16,8,0,43,44,5,19,0,0,44,46,1,0,0,0,45,35,
-1,0,0,0,45,39,1,0,0,0,46,7,1,0,0,0,47,48,5,18,0,0,48,49,5,3,0,0,49,50,3,
-16,8,0,50,51,5,19,0,0,51,9,1,0,0,0,52,53,5,4,0,0,53,54,3,12,6,0,54,55,5,
-5,0,0,55,56,5,19,0,0,56,11,1,0,0,0,57,61,5,14,0,0,58,61,3,16,8,0,59,61,5,
-18,0,0,60,57,1,0,0,0,60,58,1,0,0,0,60,59,1,0,0,0,61,13,1,0,0,0,62,63,7,0,
-0,0,63,15,1,0,0,0,64,65,6,8,-1,0,65,72,5,16,0,0,66,72,5,18,0,0,67,68,5,9,
+14,7,0,36,37,5,13,0,0,37,38,5,14,0,0,38,46,1,0,0,0,39,40,3,14,7,0,40,41,
+5,13,0,0,41,42,5,3,0,0,42,43,3,16,8,0,43,44,5,14,0,0,44,46,1,0,0,0,45,35,
+1,0,0,0,45,39,1,0,0,0,46,7,1,0,0,0,47,48,5,13,0,0,48,49,5,3,0,0,49,50,3,
+16,8,0,50,51,5,14,0,0,51,9,1,0,0,0,52,53,5,4,0,0,53,54,3,12,6,0,54,55,5,
+5,0,0,55,56,5,14,0,0,56,11,1,0,0,0,57,61,5,20,0,0,58,61,3,16,8,0,59,61,5,
+13,0,0,60,57,1,0,0,0,60,58,1,0,0,0,60,59,1,0,0,0,61,13,1,0,0,0,62,63,7,0,
+0,0,63,15,1,0,0,0,64,65,6,8,-1,0,65,72,5,11,0,0,66,72,5,13,0,0,67,68,5,9,
 0,0,68,69,3,16,8,0,69,70,5,5,0,0,70,72,1,0,0,0,71,64,1,0,0,0,71,66,1,0,0,
 0,71,67,1,0,0,0,72,81,1,0,0,0,73,74,10,5,0,0,74,75,7,1,0,0,75,80,3,16,8,
 6,76,77,10,4,0,0,77,78,7,2,0,0,78,80,3,16,8,5,79,73,1,0,0,0,79,76,1,0,0,
@@ -40,11 +40,11 @@ export default class CodeFileParser extends antlr4.Parser {
     static grammarFileName = "CodeFile.g4";
     static literalNames = [ null, "'{'", "'}'", "'='", "'printf('", "')'", 
                             "'margit'", "'radahn'", "'godrick'", "'('", 
-                            "'*'", "'/'", "'+'", "'-'", null, "'iniciar'", 
-                            null, "'codigo'", null, "';'" ];
+                            "'iniciar'", null, "'codigo'", null, "';'", 
+                            null, "'*'", "'/'", "'+'", "'-'" ];
     static symbolicNames = [ null, null, null, null, null, null, null, null, 
-                             null, null, "MUL", "DIV", "ADD", "SUB", "TEXTO", 
-                             "INSERT", "INT", "CODE", "ID", "SEMI", "WS" ];
+                             null, null, "INSERT", "INT", "CODE", "ID", 
+                             "SEMI", "WS", "MUL", "DIV", "ADD", "SUB", "TEXTO" ];
     static ruleNames = [ "start", "content", "expresiones", "declaraciones", 
                          "asignaciones", "imprimir", "mensaje", "tipo", 
                          "expr" ];
@@ -120,7 +120,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	        this.state = 27;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        while((((_la) & ~0x1f) === 0 && ((1 << _la) & 262608) !== 0)) {
+	        while((((_la) & ~0x1f) === 0 && ((1 << _la) & 8656) !== 0)) {
 	            this.state = 24;
 	            this.expresiones();
 	            this.state = 29;
@@ -157,7 +157,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	            this.state = 30;
 	            this.declaraciones();
 	            break;
-	        case 18:
+	        case 13:
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 31;
 	            this.asignaciones();
@@ -384,7 +384,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	        this.state = 71;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
-	        case 16:
+	        case 11:
 	            localctx = new IntContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
@@ -392,7 +392,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	            this.state = 65;
 	            this.match(CodeFileParser.INT);
 	            break;
-	        case 18:
+	        case 13:
 	            localctx = new IdContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
@@ -437,7 +437,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	                    this.state = 74;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===10 || _la===11)) {
+	                    if(!(_la===16 || _la===17)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -458,7 +458,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	                    this.state = 77;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===12 || _la===13)) {
+	                    if(!(_la===18 || _la===19)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -503,17 +503,17 @@ CodeFileParser.T__5 = 6;
 CodeFileParser.T__6 = 7;
 CodeFileParser.T__7 = 8;
 CodeFileParser.T__8 = 9;
-CodeFileParser.MUL = 10;
-CodeFileParser.DIV = 11;
-CodeFileParser.ADD = 12;
-CodeFileParser.SUB = 13;
-CodeFileParser.TEXTO = 14;
-CodeFileParser.INSERT = 15;
-CodeFileParser.INT = 16;
-CodeFileParser.CODE = 17;
-CodeFileParser.ID = 18;
-CodeFileParser.SEMI = 19;
-CodeFileParser.WS = 20;
+CodeFileParser.INSERT = 10;
+CodeFileParser.INT = 11;
+CodeFileParser.CODE = 12;
+CodeFileParser.ID = 13;
+CodeFileParser.SEMI = 14;
+CodeFileParser.WS = 15;
+CodeFileParser.MUL = 16;
+CodeFileParser.DIV = 17;
+CodeFileParser.ADD = 18;
+CodeFileParser.SUB = 19;
+CodeFileParser.TEXTO = 20;
 
 CodeFileParser.RULE_start = 0;
 CodeFileParser.RULE_content = 1;

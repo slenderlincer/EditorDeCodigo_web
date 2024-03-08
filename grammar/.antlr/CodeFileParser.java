@@ -1,4 +1,4 @@
-// Generated from c://Users//saule//Desktop//Cascaron//grammar//CodeFile.g4 by ANTLR 4.13.1
+// Generated from c://Users//saule//Desktop//Codigo_Editor//grammar//CodeFile.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -17,8 +17,8 @@ public class CodeFileParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		MUL=10, DIV=11, ADD=12, SUB=13, TEXTO=14, INSERT=15, INT=16, CODE=17, 
-		ID=18, SEMI=19, WS=20;
+		INSERT=10, INT=11, CODE=12, ID=13, SEMI=14, WS=15, MUL=16, DIV=17, ADD=18, 
+		SUB=19, TEXTO=20;
 	public static final int
 		RULE_start = 0, RULE_content = 1, RULE_expresiones = 2, RULE_declaraciones = 3, 
 		RULE_asignaciones = 4, RULE_imprimir = 5, RULE_mensaje = 6, RULE_tipo = 7, 
@@ -34,15 +34,15 @@ public class CodeFileParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'{'", "'}'", "'='", "'printf('", "')'", "'margit'", "'radahn'", 
-			"'godrick'", "'('", "'*'", "'/'", "'+'", "'-'", null, "'iniciar'", null, 
-			"'codigo'", null, "';'"
+			"'godrick'", "'('", "'iniciar'", null, "'codigo'", null, "';'", null, 
+			"'*'", "'/'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, "MUL", "DIV", 
-			"ADD", "SUB", "TEXTO", "INSERT", "INT", "CODE", "ID", "SEMI", "WS"
+			null, null, null, null, null, null, null, null, null, null, "INSERT", 
+			"INT", "CODE", "ID", "SEMI", "WS", "MUL", "DIV", "ADD", "SUB", "TEXTO"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -162,7 +162,7 @@ public class CodeFileParser extends Parser {
 			setState(27);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 262608L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 8656L) != 0)) {
 				{
 				{
 				setState(24);
@@ -717,41 +717,41 @@ public class CodeFileParser extends Parser {
 		"\b\u0001\b\u0001\b\u0001\b\u0001\b\u0003\bH\b\b\u0001\b\u0001\b\u0001"+
 		"\b\u0001\b\u0001\b\u0001\b\u0005\bP\b\b\n\b\f\bS\t\b\u0001\b\u0000\u0001"+
 		"\u0010\t\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0000\u0003\u0001\u0000"+
-		"\u0006\b\u0001\u0000\n\u000b\u0001\u0000\f\rU\u0000\u0012\u0001\u0000"+
-		"\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000\u0004!\u0001\u0000\u0000"+
-		"\u0000\u0006-\u0001\u0000\u0000\u0000\b/\u0001\u0000\u0000\u0000\n4\u0001"+
-		"\u0000\u0000\u0000\f<\u0001\u0000\u0000\u0000\u000e>\u0001\u0000\u0000"+
-		"\u0000\u0010G\u0001\u0000\u0000\u0000\u0012\u0013\u0005\u000f\u0000\u0000"+
-		"\u0013\u0014\u0005\u0011\u0000\u0000\u0014\u0015\u0005\u0001\u0000\u0000"+
-		"\u0015\u0016\u0003\u0002\u0001\u0000\u0016\u0017\u0005\u0002\u0000\u0000"+
-		"\u0017\u0001\u0001\u0000\u0000\u0000\u0018\u001a\u0003\u0004\u0002\u0000"+
-		"\u0019\u0018\u0001\u0000\u0000\u0000\u001a\u001d\u0001\u0000\u0000\u0000"+
-		"\u001b\u0019\u0001\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000\u0000"+
-		"\u001c\u0003\u0001\u0000\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000"+
-		"\u001e\"\u0003\u0006\u0003\u0000\u001f\"\u0003\b\u0004\u0000 \"\u0003"+
-		"\n\u0005\u0000!\u001e\u0001\u0000\u0000\u0000!\u001f\u0001\u0000\u0000"+
-		"\u0000! \u0001\u0000\u0000\u0000\"\u0005\u0001\u0000\u0000\u0000#$\u0003"+
-		"\u000e\u0007\u0000$%\u0005\u0012\u0000\u0000%&\u0005\u0013\u0000\u0000"+
-		"&.\u0001\u0000\u0000\u0000\'(\u0003\u000e\u0007\u0000()\u0005\u0012\u0000"+
-		"\u0000)*\u0005\u0003\u0000\u0000*+\u0003\u0010\b\u0000+,\u0005\u0013\u0000"+
+		"\u0006\b\u0001\u0000\u0010\u0011\u0001\u0000\u0012\u0013U\u0000\u0012"+
+		"\u0001\u0000\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000\u0004!\u0001"+
+		"\u0000\u0000\u0000\u0006-\u0001\u0000\u0000\u0000\b/\u0001\u0000\u0000"+
+		"\u0000\n4\u0001\u0000\u0000\u0000\f<\u0001\u0000\u0000\u0000\u000e>\u0001"+
+		"\u0000\u0000\u0000\u0010G\u0001\u0000\u0000\u0000\u0012\u0013\u0005\n"+
+		"\u0000\u0000\u0013\u0014\u0005\f\u0000\u0000\u0014\u0015\u0005\u0001\u0000"+
+		"\u0000\u0015\u0016\u0003\u0002\u0001\u0000\u0016\u0017\u0005\u0002\u0000"+
+		"\u0000\u0017\u0001\u0001\u0000\u0000\u0000\u0018\u001a\u0003\u0004\u0002"+
+		"\u0000\u0019\u0018\u0001\u0000\u0000\u0000\u001a\u001d\u0001\u0000\u0000"+
+		"\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000"+
+		"\u0000\u001c\u0003\u0001\u0000\u0000\u0000\u001d\u001b\u0001\u0000\u0000"+
+		"\u0000\u001e\"\u0003\u0006\u0003\u0000\u001f\"\u0003\b\u0004\u0000 \""+
+		"\u0003\n\u0005\u0000!\u001e\u0001\u0000\u0000\u0000!\u001f\u0001\u0000"+
+		"\u0000\u0000! \u0001\u0000\u0000\u0000\"\u0005\u0001\u0000\u0000\u0000"+
+		"#$\u0003\u000e\u0007\u0000$%\u0005\r\u0000\u0000%&\u0005\u000e\u0000\u0000"+
+		"&.\u0001\u0000\u0000\u0000\'(\u0003\u000e\u0007\u0000()\u0005\r\u0000"+
+		"\u0000)*\u0005\u0003\u0000\u0000*+\u0003\u0010\b\u0000+,\u0005\u000e\u0000"+
 		"\u0000,.\u0001\u0000\u0000\u0000-#\u0001\u0000\u0000\u0000-\'\u0001\u0000"+
-		"\u0000\u0000.\u0007\u0001\u0000\u0000\u0000/0\u0005\u0012\u0000\u0000"+
-		"01\u0005\u0003\u0000\u000012\u0003\u0010\b\u000023\u0005\u0013\u0000\u0000"+
-		"3\t\u0001\u0000\u0000\u000045\u0005\u0004\u0000\u000056\u0003\f\u0006"+
-		"\u000067\u0005\u0005\u0000\u000078\u0005\u0013\u0000\u00008\u000b\u0001"+
-		"\u0000\u0000\u00009=\u0005\u000e\u0000\u0000:=\u0003\u0010\b\u0000;=\u0005"+
-		"\u0012\u0000\u0000<9\u0001\u0000\u0000\u0000<:\u0001\u0000\u0000\u0000"+
-		"<;\u0001\u0000\u0000\u0000=\r\u0001\u0000\u0000\u0000>?\u0007\u0000\u0000"+
-		"\u0000?\u000f\u0001\u0000\u0000\u0000@A\u0006\b\uffff\uffff\u0000AH\u0005"+
-		"\u0010\u0000\u0000BH\u0005\u0012\u0000\u0000CD\u0005\t\u0000\u0000DE\u0003"+
-		"\u0010\b\u0000EF\u0005\u0005\u0000\u0000FH\u0001\u0000\u0000\u0000G@\u0001"+
-		"\u0000\u0000\u0000GB\u0001\u0000\u0000\u0000GC\u0001\u0000\u0000\u0000"+
-		"HQ\u0001\u0000\u0000\u0000IJ\n\u0005\u0000\u0000JK\u0007\u0001\u0000\u0000"+
-		"KP\u0003\u0010\b\u0006LM\n\u0004\u0000\u0000MN\u0007\u0002\u0000\u0000"+
-		"NP\u0003\u0010\b\u0005OI\u0001\u0000\u0000\u0000OL\u0001\u0000\u0000\u0000"+
-		"PS\u0001\u0000\u0000\u0000QO\u0001\u0000\u0000\u0000QR\u0001\u0000\u0000"+
-		"\u0000R\u0011\u0001\u0000\u0000\u0000SQ\u0001\u0000\u0000\u0000\u0007"+
-		"\u001b!-<GOQ";
+		"\u0000\u0000.\u0007\u0001\u0000\u0000\u0000/0\u0005\r\u0000\u000001\u0005"+
+		"\u0003\u0000\u000012\u0003\u0010\b\u000023\u0005\u000e\u0000\u00003\t"+
+		"\u0001\u0000\u0000\u000045\u0005\u0004\u0000\u000056\u0003\f\u0006\u0000"+
+		"67\u0005\u0005\u0000\u000078\u0005\u000e\u0000\u00008\u000b\u0001\u0000"+
+		"\u0000\u00009=\u0005\u0014\u0000\u0000:=\u0003\u0010\b\u0000;=\u0005\r"+
+		"\u0000\u0000<9\u0001\u0000\u0000\u0000<:\u0001\u0000\u0000\u0000<;\u0001"+
+		"\u0000\u0000\u0000=\r\u0001\u0000\u0000\u0000>?\u0007\u0000\u0000\u0000"+
+		"?\u000f\u0001\u0000\u0000\u0000@A\u0006\b\uffff\uffff\u0000AH\u0005\u000b"+
+		"\u0000\u0000BH\u0005\r\u0000\u0000CD\u0005\t\u0000\u0000DE\u0003\u0010"+
+		"\b\u0000EF\u0005\u0005\u0000\u0000FH\u0001\u0000\u0000\u0000G@\u0001\u0000"+
+		"\u0000\u0000GB\u0001\u0000\u0000\u0000GC\u0001\u0000\u0000\u0000HQ\u0001"+
+		"\u0000\u0000\u0000IJ\n\u0005\u0000\u0000JK\u0007\u0001\u0000\u0000KP\u0003"+
+		"\u0010\b\u0006LM\n\u0004\u0000\u0000MN\u0007\u0002\u0000\u0000NP\u0003"+
+		"\u0010\b\u0005OI\u0001\u0000\u0000\u0000OL\u0001\u0000\u0000\u0000PS\u0001"+
+		"\u0000\u0000\u0000QO\u0001\u0000\u0000\u0000QR\u0001\u0000\u0000\u0000"+
+		"R\u0011\u0001\u0000\u0000\u0000SQ\u0001\u0000\u0000\u0000\u0007\u001b"+
+		"!-<GOQ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

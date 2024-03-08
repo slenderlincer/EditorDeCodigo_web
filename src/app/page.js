@@ -1,3 +1,7 @@
+/**
+ * Componente funcional que representa una página de editor de código.
+ * Permite a los usuarios ingresar y editar código, analizarlo y mostrar el resultado.
+ */
 'use client';
 import React, { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
@@ -5,21 +9,27 @@ import { analizar } from './module/generator.js';
 import './EditorDeCodigoPage.css';
 
 const EditorDeCodigoPage = () => {
+  // Estado para almacenar el código ingresado por el usuario
   const [codigo, setCodigo] = useState("");
+  // Estado para almacenar el resultado del análisis del código
   const [resultado, setResultado] = useState("");
-
-  //Funcion para revisar el valor del codigo
+  
+  // Función para manejar cambios en el código.
   const handleChange = (value) => {
     setCodigo(value);
   };
 
-  //Funcion para evaluar el analisis del codigo
+  
+  /**
+   * Función para realizar el análisis del código ingresado por el usuario.
+   * Invoca la función 'analizar' del módulo 'generator.js'.
+   */
   const handleAnalizar = () => {
     const result = analizar(codigo);
     setResultado(result);
   };
-
-  //Funcion para limpiar la pagina
+  
+  // Función para limpiar la página, restableciendo el código y el resultado
   const handleLimpiar = () => {
     setCodigo("");
     setResultado("");
@@ -29,6 +39,7 @@ const EditorDeCodigoPage = () => {
     <div className="editor-container">
       <h1 className="editor-title">CodeVerse</h1>
       <div className="editor-wrapper">
+        {/* Editor de código proporcionado por Monaco Editor */}
         <Editor
           theme='vs-dark'
           height="500px"
@@ -51,11 +62,15 @@ const EditorDeCodigoPage = () => {
           }}
         />
       </div>
+      {/* Botón para iniciar el análisis del código */}
       <button onClick={handleAnalizar} className="analizar-button">Analizar</button>
+      {/* Botón para limpiar el código y el resultado */}
       <button onClick={handleLimpiar} className="limpiar-button">Limpiar</button>
+      {/* Contenedor para mostrar el resultado del análisis */}
       {resultado && (
         <div className="resultado-container">
           <h2>Resultado:</h2>
+          {/* Área de texto para mostrar el resultado del análisis */}
           <textarea
             value={resultado}
             readOnly
