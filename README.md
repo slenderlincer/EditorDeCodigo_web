@@ -18,7 +18,7 @@ La gramática define la estructura de un archivo de código con reglas para decl
 ___
 
 #### CodeFile.g4
-```antlr4
+```antlr
 grammar CodeFile;
 
 // Importa las reglas del lexer que se usarán en este parser
