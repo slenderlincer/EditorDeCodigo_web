@@ -1,4 +1,4 @@
-# EDITOR DE CODIGO ONLINE
+# CODEVERSE
 
 ## **ANTLR**
 
@@ -77,6 +77,13 @@ expr: expr op=('*' | '/') expr # MulDiv
 | '(' expr ')' #parens
 ;
 ```
+En donde los tipos de datos son margit, godrick y radahn, estos tres tipos de datos representan tipos de datos de un lenguaje de programacion.
+
+1. margit = int
+2. godrick = float
+3. radahn = char
+
+Por el momento solo acepta esos tres tipos de datos.
 ___
 
 #### LexerRules.g4
@@ -547,10 +554,34 @@ const EditorDeCodigoPage = () => {
 
 export default EditorDeCodigoPage;
 ```
-**Page.js:** Es una página de editor de código. Este componente permite a los usuarios ingresar y editar código, así como también analizarlo y mostrar el resultado. Utiliza el componente Editor de Monaco Editor para proporcionar un entorno de edición de código. El estado del componente incluye el código ingresado por el usuario y el resultado del análisis. Hay funciones para manejar cambios en el código (handleChange), realizar el análisis del código (handleAnalizar), y limpiar la página (handleLimpiar). El análisis del código se realiza invocando la función analizar del módulo generator.js. 
+**Page.js:** Este componente permite a los usuarios ingresar y editar código, así como también analizarlo y mostrar el resultado. Utiliza el componente Editor de Monaco Editor para proporcionar un entorno de edición de código. El estado del componente incluye el código ingresado por el usuario y el resultado del análisis. Hay funciones para manejar cambios en el código (handleChange), realizar el análisis del código (handleAnalizar), y limpiar la página (handleLimpiar). El análisis del código se realiza invocando la función analizar del módulo generator.js. 
 ___
 
-### EDITOR DE CODIGO ONLINE
+### USO - EDITOR DE CODIGO ONLINE
+El editor de codigo permite la declaracion de variables, declaracion de variables con asignacion, permite realizar operaciones aritmeticas, tambien permite realizar impresiones en pantalla. Para la declaracion de variables es necesario indicarle al editor que estas iniciando el codigo, ejemplo:
+
+```javascript
+iniciar codigo{
+
+}
+```
+Al ingresar esto en el editor podras realizar cualquier accion que sea permitida por la gramatica, ejemplo:
+
+```javascript
+iniciar codigo{
+margit a;
+margit b;
+	b = 50;
+
+margit c = 10;
+margit suma = c + b;
+}
+```
+Estas son una de las cuantas acciones que se pueden realizar en el editor de codigo.
+
+
+### EJEMPLOS VISUALES.
+
 #### INTERFAZ
 ![Codigo Editor Interface](src/app/img/CodeVerseInterface.png)
 
@@ -565,3 +596,39 @@ ___
 #### DECLARACION DE VARIABLES CON ASIGNACION
 
 ![Codigo Editor Interface](src/app/img/DeclaracionConAsignacion.png)
+
+#### IMPRESIONES
+![Codigo Editor Interface](src/app/img/Impresiones.png)
+
+#### OPERACIONES ARITMETICAS
+![Codigo Editor Interface](src/app/img/Operaciones.png)
+
+#### MANEJO DE ERRORES
+El editor de codigo tambien tiene la capacidad de manejar distintos errores como lo son tratar con variables sin antes haber definido, asi como errores sintacticos y errores lexicos, estos errores son generados por el sistema apartir de la gramatica definida en ANTLR, Ejemplo:
+
+#### ASIGNAR VALOR A UNA VARIABLE NO DEFINIDA
+![Codigo Editor Interface](src/app/img/valorsSinVariableDefinida.png)
+
+#### IMPRIMIR UNA VARIABLE NO DEFINIDA
+![Codigo Editor Interface](src/app/img/impresionSinVariableDefinida.png)
+
+#### OPERACION CON UNA VARIABLE NO DEFINIDA
+![Codigo Editor Interface](src/app/img/operacionSinVariableDefinida.png)
+
+Estos son algunos errores que puede manejar el editor de codigo al querer realizar acciones con una variable no definida, como se puede observar el error lo imprime en pantalla para que el usuario lo pueda visualizar y corregir su codigo.
+
+---
+
+#### ERRORES SINTACTICOS Y LEXICOS
+
+#### ERROR SINTACTICO
+![Codigo Editor Interface](src/app/img/ErrorParser.png)
+
+![Codigo Editor Interface](src/app/img/ErrorParser1.png)
+
+#### ERROR LEXICO
+![Codigo Editor Interface](src/app/img/ErrorLexico.png)
+
+Estos errores sintacticos y lexicos son generados automaticamente por el sistema a partir de la gramatica definida en antlr. Al ingresar una funcion con una escritura erronea el sistema lanza el error ya que la gramatica no reconoce la entrada asi como al intentar ingresar un simbolo no definido en la gramatica se produce un error lexico y se muestra en pantalla
+
+---

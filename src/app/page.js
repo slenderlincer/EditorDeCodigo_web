@@ -42,7 +42,7 @@ const EditorDeCodigoPage = () => {
         {/* Editor de código proporcionado por Monaco Editor */}
         <Editor
           theme='vs-dark'
-          height="500px"
+          height="300px"
           color='blue'
           value={codigo}
           onChange={handleChange}

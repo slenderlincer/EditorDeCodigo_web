@@ -10,8 +10,19 @@ export default class CustomVisitor extends CodeFileVisitor {
 			"godrick": []
 		};
 		this.errors = [];
+		this.prints = [];
 	}
-	
+
+	getPrints(){
+		const prints = ['\n']
+		const impresiones= this.prints;
+		impresiones.forEach(print => {
+			const printf = `${print}`
+			prints.push(printf)
+		});
+		return prints.join('\n');
+
+	}
 	// Método para verificar si hay errores durante el análisis.
 	contErrores(){
 		return this.errors.length > 0;
@@ -52,7 +63,7 @@ export default class CustomVisitor extends CodeFileVisitor {
 		  console.log("Se han encontrado errores durante el análisis.");
 		  return this.getError();;
 		}
-		return console.log(this.getVariables());
+		return [this.getVariables(), this.getPrints()];
 	}
 	
 	// Visit a parse tree produced by CodeFileParser#content.
@@ -101,13 +112,15 @@ export default class CustomVisitor extends CodeFileVisitor {
 		// Verificar si el mensaje es un TEXTO o una expresión
 		if (ctx.mensaje().TEXTO() !== null) {// Si es un TEXTO, obtenemos el texto entre comillas
 			const mensajeTexto = ctx.mensaje().getText().slice(1, -1); // Eliminar las comillas
-			console.log(mensajeTexto);
+			this.prints.push(mensajeTexto);
+			//console.log(this.prints)
 		} else {
 			// Si es una expresión, visitamos la expresión y obtenemos su valor
 			const nombreVariable = ctx.mensaje().getText(); // Obtener el nombre de la variable
 			if (this.variableExist(nombreVariable)) {
 				const valorExpresion = this.visit(ctx.mensaje().expr());
-				console.log(valorExpresion);
+				this.prints.push(valorExpresion);
+				//console.log(this.prints)
 			} else {
 				this.errors.push(`Error: la variable "${nombreVariable}" no está definida.`);
 				return;
