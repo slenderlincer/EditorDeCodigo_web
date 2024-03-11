@@ -30,7 +30,7 @@ asignaciones: ID '=' expr SEMI
 ;
 
 // La regla 'imprimir' representa la instrucción para imprimir mensajes
-imprimir: 'printf(' mensaje ')' SEMI
+imprimir: 'MostrarMensaje(' mensaje ')' SEMI
 ;
 
 // La regla 'mensaje' representa lo que se puede imprimir (puede ser texto, una expresión o una variable)

@@ -17,8 +17,8 @@ public class CodeFileParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		INSERT=10, INT=11, CODE=12, ID=13, SEMI=14, WS=15, MUL=16, DIV=17, ADD=18, 
-		SUB=19, TEXTO=20;
+		INSERT=10, INT=11, CODE=12, ID=13, SEMI=14, MUL=15, DIV=16, ADD=17, SUB=18, 
+		TEXTO=19, WS=20;
 	public static final int
 		RULE_start = 0, RULE_content = 1, RULE_expresiones = 2, RULE_declaraciones = 3, 
 		RULE_asignaciones = 4, RULE_imprimir = 5, RULE_mensaje = 6, RULE_tipo = 7, 
@@ -33,16 +33,16 @@ public class CodeFileParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'{'", "'}'", "'='", "'printf('", "')'", "'margit'", "'radahn'", 
-			"'godrick'", "'('", "'iniciar'", null, "'codigo'", null, "';'", null, 
-			"'*'", "'/'", "'+'", "'-'"
+			null, "'{'", "'}'", "'='", "'MostrarMensaje('", "')'", "'margit'", "'radahn'", 
+			"'godrick'", "'('", "'iniciar'", null, "'codigo'", null, "';'", "'*'", 
+			"'/'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, "INSERT", 
-			"INT", "CODE", "ID", "SEMI", "WS", "MUL", "DIV", "ADD", "SUB", "TEXTO"
+			"INT", "CODE", "ID", "SEMI", "MUL", "DIV", "ADD", "SUB", "TEXTO", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -717,7 +717,7 @@ public class CodeFileParser extends Parser {
 		"\b\u0001\b\u0001\b\u0001\b\u0001\b\u0003\bH\b\b\u0001\b\u0001\b\u0001"+
 		"\b\u0001\b\u0001\b\u0001\b\u0005\bP\b\b\n\b\f\bS\t\b\u0001\b\u0000\u0001"+
 		"\u0010\t\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0000\u0003\u0001\u0000"+
-		"\u0006\b\u0001\u0000\u0010\u0011\u0001\u0000\u0012\u0013U\u0000\u0012"+
+		"\u0006\b\u0001\u0000\u000f\u0010\u0001\u0000\u0011\u0012U\u0000\u0012"+
 		"\u0001\u0000\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000\u0004!\u0001"+
 		"\u0000\u0000\u0000\u0006-\u0001\u0000\u0000\u0000\b/\u0001\u0000\u0000"+
 		"\u0000\n4\u0001\u0000\u0000\u0000\f<\u0001\u0000\u0000\u0000\u000e>\u0001"+
@@ -739,7 +739,7 @@ public class CodeFileParser extends Parser {
 		"\u0003\u0000\u000012\u0003\u0010\b\u000023\u0005\u000e\u0000\u00003\t"+
 		"\u0001\u0000\u0000\u000045\u0005\u0004\u0000\u000056\u0003\f\u0006\u0000"+
 		"67\u0005\u0005\u0000\u000078\u0005\u000e\u0000\u00008\u000b\u0001\u0000"+
-		"\u0000\u00009=\u0005\u0014\u0000\u0000:=\u0003\u0010\b\u0000;=\u0005\r"+
+		"\u0000\u00009=\u0005\u0013\u0000\u0000:=\u0003\u0010\b\u0000;=\u0005\r"+
 		"\u0000\u0000<9\u0001\u0000\u0000\u0000<:\u0001\u0000\u0000\u0000<;\u0001"+
 		"\u0000\u0000\u0000=\r\u0001\u0000\u0000\u0000>?\u0007\u0000\u0000\u0000"+
 		"?\u000f\u0001\u0000\u0000\u0000@A\u0006\b\uffff\uffff\u0000AH\u0005\u000b"+

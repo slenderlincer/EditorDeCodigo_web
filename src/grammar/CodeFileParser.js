@@ -9,7 +9,7 @@ const serializedATN = [4,1,20,85,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
 1,3,3,3,46,8,3,1,4,1,4,1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,3,6,61,
 8,6,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,72,8,8,1,8,1,8,1,8,1,8,1,8,1,
 8,5,8,80,8,8,10,8,12,8,83,9,8,1,8,0,1,16,9,0,2,4,6,8,10,12,14,16,0,3,1,0,
-6,8,1,0,16,17,1,0,18,19,85,0,18,1,0,0,0,2,27,1,0,0,0,4,33,1,0,0,0,6,45,1,
+6,8,1,0,15,16,1,0,17,18,85,0,18,1,0,0,0,2,27,1,0,0,0,4,33,1,0,0,0,6,45,1,
 0,0,0,8,47,1,0,0,0,10,52,1,0,0,0,12,60,1,0,0,0,14,62,1,0,0,0,16,71,1,0,0,
 0,18,19,5,10,0,0,19,20,5,12,0,0,20,21,5,1,0,0,21,22,3,2,1,0,22,23,5,2,0,
 0,23,1,1,0,0,0,24,26,3,4,2,0,25,24,1,0,0,0,26,29,1,0,0,0,27,25,1,0,0,0,27,
@@ -19,7 +19,7 @@ const serializedATN = [4,1,20,85,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
 5,13,0,0,41,42,5,3,0,0,42,43,3,16,8,0,43,44,5,14,0,0,44,46,1,0,0,0,45,35,
 1,0,0,0,45,39,1,0,0,0,46,7,1,0,0,0,47,48,5,13,0,0,48,49,5,3,0,0,49,50,3,
 16,8,0,50,51,5,14,0,0,51,9,1,0,0,0,52,53,5,4,0,0,53,54,3,12,6,0,54,55,5,
-5,0,0,55,56,5,14,0,0,56,11,1,0,0,0,57,61,5,20,0,0,58,61,3,16,8,0,59,61,5,
+5,0,0,55,56,5,14,0,0,56,11,1,0,0,0,57,61,5,19,0,0,58,61,3,16,8,0,59,61,5,
 13,0,0,60,57,1,0,0,0,60,58,1,0,0,0,60,59,1,0,0,0,61,13,1,0,0,0,62,63,7,0,
 0,0,63,15,1,0,0,0,64,65,6,8,-1,0,65,72,5,11,0,0,66,72,5,13,0,0,67,68,5,9,
 0,0,68,69,3,16,8,0,69,70,5,5,0,0,70,72,1,0,0,0,71,64,1,0,0,0,71,66,1,0,0,
@@ -38,13 +38,14 @@ const sharedContextCache = new antlr4.atn.PredictionContextCache();
 export default class CodeFileParser extends antlr4.Parser {
 
     static grammarFileName = "CodeFile.g4";
-    static literalNames = [ null, "'{'", "'}'", "'='", "'printf('", "')'", 
-                            "'margit'", "'radahn'", "'godrick'", "'('", 
-                            "'iniciar'", null, "'codigo'", null, "';'", 
-                            null, "'*'", "'/'", "'+'", "'-'" ];
+    static literalNames = [ null, "'{'", "'}'", "'='", "'MostrarMensaje('", 
+                            "')'", "'margit'", "'radahn'", "'godrick'", 
+                            "'('", "'iniciar'", null, "'codigo'", null, 
+                            "';'", "'*'", "'/'", "'+'", "'-'" ];
     static symbolicNames = [ null, null, null, null, null, null, null, null, 
                              null, null, "INSERT", "INT", "CODE", "ID", 
-                             "SEMI", "WS", "MUL", "DIV", "ADD", "SUB", "TEXTO" ];
+                             "SEMI", "MUL", "DIV", "ADD", "SUB", "TEXTO", 
+                             "WS" ];
     static ruleNames = [ "start", "content", "expresiones", "declaraciones", 
                          "asignaciones", "imprimir", "mensaje", "tipo", 
                          "expr" ];
@@ -437,7 +438,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	                    this.state = 74;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===16 || _la===17)) {
+	                    if(!(_la===15 || _la===16)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -458,7 +459,7 @@ export default class CodeFileParser extends antlr4.Parser {
 	                    this.state = 77;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===18 || _la===19)) {
+	                    if(!(_la===17 || _la===18)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -508,12 +509,12 @@ CodeFileParser.INT = 11;
 CodeFileParser.CODE = 12;
 CodeFileParser.ID = 13;
 CodeFileParser.SEMI = 14;
-CodeFileParser.WS = 15;
-CodeFileParser.MUL = 16;
-CodeFileParser.DIV = 17;
-CodeFileParser.ADD = 18;
-CodeFileParser.SUB = 19;
-CodeFileParser.TEXTO = 20;
+CodeFileParser.MUL = 15;
+CodeFileParser.DIV = 16;
+CodeFileParser.ADD = 17;
+CodeFileParser.SUB = 18;
+CodeFileParser.TEXTO = 19;
+CodeFileParser.WS = 20;
 
 CodeFileParser.RULE_start = 0;
 CodeFileParser.RULE_content = 1;
