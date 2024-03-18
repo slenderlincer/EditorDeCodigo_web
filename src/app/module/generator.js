@@ -46,6 +46,5 @@ export const analizar = (input) => {
     return customVisitor.getError(); // Retorna los errores encontrados durante la visita
   }
 
-  console.log(resultado)
   return resultado; // Retorna el resultado del análisis
 }

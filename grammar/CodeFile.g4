@@ -16,11 +16,13 @@ expresiones:
             asignaciones
             |
             imprimir
+            |
+            condiciones
             ;
 
 // La regla 'declaraciones' representa declaraciones de variables
 declaraciones:
-            tipo ID SEMI                                          #declaracion
+            tipo ID SEMI                                                    #declaracion
             |
             tipo ID '=' expr SEMI	                              #declaracionasignacion
             ;
@@ -30,14 +32,12 @@ asignaciones: ID '=' expr SEMI
 ;
 
 // La regla 'imprimir' representa la instrucción para imprimir mensajes
-imprimir: 'MostrarMensaje(' mensaje ')' SEMI
-;
+imprimir: 'MostrarMensaje(' expr ')' SEMI;
 
-// La regla 'mensaje' representa lo que se puede imprimir (puede ser texto, una expresión o una variable)
-mensaje: 
-      TEXTO
-      |expr
-      |ID;
+condiciones: IF '('condicion')' '{'expresiones*'}' (otherwise)?;
+otherwise: ELSE '{' expresiones* '}';
+condicion: expr op=(MAYORQUE | MENORQUE| MAYORIGUAL | MENORIGUAL| DOBLEIGUAL|NEGACION)expr;
+
 
 // La regla 'tipo' representa los diferentes tipos de datos que pueden tener las variables
 tipo:
@@ -53,5 +53,16 @@ expr: expr op=('*' | '/') expr # MulDiv
 | expr op=('+' | '-') expr #AddSub
 | INT #int
 | ID #id 
+| STRING #string
 | '(' expr ')' #parens
 ;
+
+IF: 'condition';
+ELSE: 'otherwise';
+STRING: '"' (~["])* '"';
+MAYORQUE: '>';
+MENORQUE: '<';
+MAYORIGUAL: '>=';
+MENORIGUAL: '<=';
+DOBLEIGUAL: '==';
+NEGACION: '!=';

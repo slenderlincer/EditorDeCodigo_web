@@ -14,15 +14,15 @@ export default class CustomVisitor extends CodeFileVisitor {
 	}
 
 	getPrints(){
-		const prints = ['\n']
+		const prints = []
 		const impresiones= this.prints;
 		impresiones.forEach(print => {
 			const printf = `${print}`
 			prints.push(printf)
 		});
 		return prints.join('\n');
-
 	}
+
 	// Método para verificar si hay errores durante el análisis.
 	contErrores(){
 		return this.errors.length > 0;
@@ -61,9 +61,10 @@ export default class CustomVisitor extends CodeFileVisitor {
 		if (this.errors.length > 0) {
 		  this.errorEncountered = true; // Marcar que se ha encontrado un error
 		  console.log("Se han encontrado errores durante el análisis.");
-		  return this.getError();;
+		  return this.getError();
 		}
-		return [this.getVariables(), this.getPrints()];
+		console.log(this.getVariables());
+		return [this.getPrints()];
 	}
 	
 	// Visit a parse tree produced by CodeFileParser#content.
@@ -74,7 +75,8 @@ export default class CustomVisitor extends CodeFileVisitor {
 	// Visit a parse tree produced by CodeFileParser#declaracion.
 	visitDeclaracion(ctx) {
     const tipo = ctx.tipo().getText();
-		const id = ctx.ID().getText();
+	const id = ctx.ID().getText();
+
 		
 		let is_variable_defined = this.variableExist(id);
 		if (!is_variable_defined){
@@ -86,55 +88,12 @@ export default class CustomVisitor extends CodeFileVisitor {
 		return [tipo, id];
 	}
 	
-	visitAsignaciones(ctx) {
-		const id = ctx.ID().getText();
-		const valor = parseInt(ctx.expr().getText());
-		
-		let is_variable_defined = this.variableExist(id);
-		if (is_variable_defined) {
-			// Buscar y actualizar el valor de la variable
-			for (let key in this.variables) {
-				const variable = this.variables[key].find(variable => variable.id === id);
-				if (variable) {
-					variable.value = valor;
-					break;
-				}
-			}
-		} else {
-			this.errors.push(`La variable "${id}" no está definida`);
-		}
-		
-		return [id, valor];
-	}
-	
-	// Visit a parse tree produced by CodeFileParser#imprimir.
-	visitImprimir(ctx) {
-		// Verificar si el mensaje es un TEXTO o una expresión
-		if (ctx.mensaje().TEXTO() !== null) {// Si es un TEXTO, obtenemos el texto entre comillas
-			const mensajeTexto = ctx.mensaje().getText().slice(1, -1); // Eliminar las comillas
-			this.prints.push(mensajeTexto);
-			//console.log(this.prints)
-		} else {
-			// Si es una expresión, visitamos la expresión y obtenemos su valor
-			const nombreVariable = ctx.mensaje().getText(); // Obtener el nombre de la variable
-			if (this.variableExist(nombreVariable)) {
-				const valorExpresion = this.visit(ctx.mensaje().expr());
-				this.prints.push(valorExpresion);
-				//console.log(this.prints)
-			} else {
-				this.errors.push(`Error: la variable "${nombreVariable}" no está definida.`);
-				return;
-			}
-		}
-		return this.visitChildren(ctx);
-	}
-	
 	visitDeclaracionasignacion(ctx) {
 		const tipo = ctx.tipo().getText();
 		const id = ctx.ID().getText();
 		const valor = this.visit(ctx.expr());
 		let is_variable_defined = this.variableExist(id);
-		
+
 		if (!is_variable_defined) {
 			this.variables[tipo].push({ "id": id, "value": valor });
 		} else {
@@ -143,37 +102,74 @@ export default class CustomVisitor extends CodeFileVisitor {
 		return [tipo, id, valor];
 	}
 	
-	// Visit a parse tree produced by CodeFileParser#asignaciones.
-	visitAsignaciones(ctx) {
-		const id = ctx.ID().getText();
-		let valor = null;
-		
-		// Verificar si ctx.expr() no es nulo antes de intentar obtener su texto
-		if (ctx.expr() !== null) {
-			valor = parseInt(ctx.expr().getText());
-		} else {
-			// Manejar el caso en que no haya una expresión válida
-			// Por ejemplo, si la asignación es solo un ID sin valor
-			this.errors.push(`No se proporcionó un valor válido para la asignación de ${id}`);
-		}
-		
-		// asignarle un valor a una variable ya definida.
-		let is_variable_defined = this.variableExist(id);
-		if (is_variable_defined) {
-			// Buscar y actualizar el valor de la variable
-			for (let key in this.variables) {
-				const variable = this.variables[key].find(variable => variable.id === id);
-				if (variable) {
-					variable.value = valor;
-					break;
+	// Visit a parse tree produced by CodeFileParser#imprimir.
+	visitImprimir(ctx) {
+			const valor = this.visit(ctx.expr()); 
+			if (ctx.expr().ID) {
+				const id = ctx.expr().ID().getText();
+				if(!this.variableExist(id)){
+				return;
 				}
 			}
-		} else {
-			this.errors.push(`La variable "${id}" no está definida`);
+			this.prints.push(valor);
+			return this.visitChildren(ctx);
+	}
+
+	visitCondiciones(ctx) {
+		// Obtener la única condición dentro de la regla condiciones
+		let condicion = ctx.condicion();
+		// Visitamos y evaluamos la condición
+		let condicionCumplida = this.visitCondicion(condicion);
+	
+		// Verificar si la condición se cumple
+		if (condicionCumplida) {
+			// Si la condición se cumple, visitamos y ejecutamos las expresiones dentro del cuerpo del if
+			let expresionesCondicion = ctx.expresiones();
+
+			// Visitamos las expresiones dentro del cuerpo del if
+			this.visit(expresionesCondicion);
+		}else if(ctx.otherwise()){
+			let expresionesElse = ctx.otherwise().expresiones();
+
+			this.visit(expresionesElse)
 		}
-		return [id, valor];
+		return;
 	}
 	
+	// Visit a parse tree produced by CodeFileParser#condicion.
+	visitCondicion(ctx) {
+		// Acceder a la expresión izquierda de la condición
+		let leftExpr = this.visit(ctx.expr(0));
+
+		// Acceder al operador de comparación
+		let operator = ctx.op.text;
+
+		// Acceder a la expresión derecha de la condición
+		let rightExpr = this.visit(ctx.expr(1));
+		// Realizar la comparación según el operador
+		switch (operator) {
+			case '>':
+				return leftExpr > rightExpr;
+			case '<':
+				return leftExpr < rightExpr;
+			case '>=':
+				return leftExpr >= rightExpr;
+			case '<=':
+            	return leftExpr <= rightExpr;
+        	case '==':
+            	return leftExpr == rightExpr;
+        	case '!=':
+            	return leftExpr != rightExpr;
+        	default:
+            	throw new Error("Operador de comparación no válido: " + operator);
+		}
+	}
+	
+	// Visit a parse tree produced by CodeFileParser#else.
+	visitElse(ctx) {
+		return this.visitChildren(ctx);
+	}
+
 	// Visit a parse tree produced by CodeFileParser#tipo.
 	visitTipo(ctx) {
 		return this.visitChildren(ctx);
@@ -184,10 +180,22 @@ export default class CustomVisitor extends CodeFileVisitor {
 		return parseInt(ctx.INT().getText());
 	}
 	
+	// Visit a parse tree produced by CodeFileParser#string.
+	visitString(ctx) {
+		let stringWithQuotes = ctx.STRING().getText(); // Obtener el texto completo del token STRING, incluyendo las comillas
+		// Eliminar las comillas dobles al inicio y al final del texto
+		return stringWithQuotes.substring(1, stringWithQuotes.length - 1);
+	}
+
 	visitId(ctx) {
 		// ID
 		let id = ctx.ID().getText();
-		if (this.variableExist(id)) {
+		if (!this.variableExist(id)) {
+			if (!this.errors.some(error => error.startsWith(`Error: La variable "${id}"`))) {
+				this.errors.push(`Error: La variable "${id}" no está declarada`);
+			}
+			return; // Retornar un valor predeterminado
+		} else {
 			// Buscar el valor asociado al identificador en la estructura de datos `variables`
 			for (let key in this.variables) {
 				const variable = this.variables[key].find(variable => variable.id === id);
@@ -197,10 +205,8 @@ export default class CustomVisitor extends CodeFileVisitor {
 				}
 			}
 		}
-		// Si no se encuentra el valor, retornar un valor predeterminado (en este caso, 0)
-		return 0;
 	}
-	
+
 	visitMulDiv(ctx) {
 		// expr op=('*'|'/') expr
 		let left = this.visit(ctx.expr(0)); // obtener el valor de la subexpresión izquierda
@@ -235,4 +241,4 @@ export default class CustomVisitor extends CodeFileVisitor {
 		}
 		return isVariableDefined;
 	}
-};
+}
