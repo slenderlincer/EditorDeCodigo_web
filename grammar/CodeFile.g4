@@ -34,9 +34,12 @@ asignaciones: ID '=' expr SEMI
 // La regla 'imprimir' representa la instrucción para imprimir mensajes
 imprimir: 'MostrarMensaje(' expr ')' SEMI;
 
-condiciones: IF '('condicion')' '{'expresiones*'}' (otherwise)?;
+condiciones: IF '('condicion ')' '{'expresiones*'}' (otherwise)?;
 otherwise: ELSE '{' expresiones* '}';
-condicion: expr op=(MAYORQUE | MENORQUE| MAYORIGUAL | MENORIGUAL| DOBLEIGUAL|NEGACION)expr;
+condicion: 
+expr op=(MAYORQUE | MENORQUE| MAYORIGUAL | MENORIGUAL| DOBLEIGUAL|NEGACION)expr
+| VERDADERO;
+
 
 
 // La regla 'tipo' representa los diferentes tipos de datos que pueden tener las variables
@@ -66,3 +69,4 @@ MAYORIGUAL: '>=';
 MENORIGUAL: '<=';
 DOBLEIGUAL: '==';
 NEGACION: '!=';
+VERDADERO: 'verdad';

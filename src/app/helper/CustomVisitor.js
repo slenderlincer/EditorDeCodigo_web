@@ -88,20 +88,43 @@ export default class CustomVisitor extends CodeFileVisitor {
 		return [tipo, id];
 	}
 	
+	// Visit a parse tree produced by CodeFileParser#declaracionasignacion.
 	visitDeclaracionasignacion(ctx) {
 		const tipo = ctx.tipo().getText();
 		const id = ctx.ID().getText();
 		const valor = this.visit(ctx.expr());
+	
 		let is_variable_defined = this.variableExist(id);
-
 		if (!is_variable_defined) {
 			this.variables[tipo].push({ "id": id, "value": valor });
 		} else {
 			this.errors.push(`La variable "${id}" ya está definida`);
 		}
-		return [tipo, id, valor];
-	}
 	
+		return [tipo, id, valor];
+	  }
+	
+	// Visit a parse tree produced by CodeFileParser#asignaciones.
+	visitAsignaciones(ctx) {
+		const id = ctx.ID().getText();
+		const valor = parseInt(ctx.expr().getText()); 
+		
+		let is_variable_defined = this.variableExist(id);
+		if (is_variable_defined) {
+			// Buscar y actualizar el valor de la variable
+			for (let key in this.variables) {
+				const variable = this.variables[key].find(variable => variable.id === id);
+				if (variable) {
+					variable.value = valor;
+					break;
+				}
+			}
+		} else {
+			this.errors.push(`La variable "${id}" no está definida`);
+		}
+		return [id, valor];
+	}
+
 	// Visit a parse tree produced by CodeFileParser#imprimir.
 	visitImprimir(ctx) {
 			const valor = this.visit(ctx.expr()); 
@@ -115,12 +138,13 @@ export default class CustomVisitor extends CodeFileVisitor {
 			return this.visitChildren(ctx);
 	}
 
+	// Visit a parse tree produced by CodeFileParser#Condiciones.
 	visitCondiciones(ctx) {
 		// Obtener la única condición dentro de la regla condiciones
 		let condicion = ctx.condicion();
 		// Visitamos y evaluamos la condición
 		let condicionCumplida = this.visitCondicion(condicion);
-	
+
 		// Verificar si la condición se cumple
 		if (condicionCumplida) {
 			// Si la condición se cumple, visitamos y ejecutamos las expresiones dentro del cuerpo del if
@@ -135,35 +159,42 @@ export default class CustomVisitor extends CodeFileVisitor {
 		}
 		return;
 	}
-	
 	// Visit a parse tree produced by CodeFileParser#condicion.
-	visitCondicion(ctx) {
-		// Acceder a la expresión izquierda de la condición
-		let leftExpr = this.visit(ctx.expr(0));
+visitCondicion(ctx) {
+    // Si la expresión es directamente `true`
+    if (ctx.VERDADERO) {
+        return true;
+    } else if (ctx.op) { // Si hay un operador
+        // Acceder a la expresión izquierda de la condición
+        let leftExpr = this.visit(ctx.expr(0));
 
-		// Acceder al operador de comparación
-		let operator = ctx.op.text;
+        // Acceder al operador de comparación
+        let operator = ctx.op.text;
 
-		// Acceder a la expresión derecha de la condición
-		let rightExpr = this.visit(ctx.expr(1));
-		// Realizar la comparación según el operador
-		switch (operator) {
-			case '>':
-				return leftExpr > rightExpr;
-			case '<':
-				return leftExpr < rightExpr;
-			case '>=':
-				return leftExpr >= rightExpr;
-			case '<=':
-            	return leftExpr <= rightExpr;
-        	case '==':
-            	return leftExpr == rightExpr;
-        	case '!=':
-            	return leftExpr != rightExpr;
-        	default:
-            	throw new Error("Operador de comparación no válido: " + operator);
-		}
-	}
+        // Acceder a la expresión derecha de la condición
+        let rightExpr = this.visit(ctx.expr(1));
+
+        // Realizar la comparación según el operador
+        switch (operator) {
+            case '>':
+                return leftExpr > rightExpr;
+            case '<':
+                return leftExpr < rightExpr;
+            case '>=':
+                return leftExpr >= rightExpr;
+            case '<=':
+                return leftExpr <= rightExpr;
+            case '==':
+                return leftExpr == rightExpr;
+            case '!=':
+                return leftExpr != rightExpr;
+            default:
+                throw new Error("Operador de comparación no válido: " + operator);
+        }
+    } else {
+        throw new Error("Expresión de condición no válida");
+    }
+}
 	
 	// Visit a parse tree produced by CodeFileParser#else.
 	visitElse(ctx) {
@@ -175,10 +206,16 @@ export default class CustomVisitor extends CodeFileVisitor {
 		return this.visitChildren(ctx);
 	}
 	
+	// Visit a parse tree produced by CodeFileParser#float.
+	visitFloat(ctx) {
+		return parseFloat(ctx.FLOAT().getText());
+	}
+	
 	visitInt(ctx) {
 		// INT
 		return parseInt(ctx.INT().getText());
 	}
+
 	
 	// Visit a parse tree produced by CodeFileParser#string.
 	visitString(ctx) {
