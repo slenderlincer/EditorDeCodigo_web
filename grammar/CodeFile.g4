@@ -17,7 +17,7 @@ expresiones:
             |
             imprimir
             |
-            condiciones
+            ordenCondicion
             ;
 
 // La regla 'declaraciones' representa declaraciones de variables
@@ -34,13 +34,17 @@ asignaciones: ID '=' expr SEMI
 // La regla 'imprimir' representa la instrucción para imprimir mensajes
 imprimir: 'MostrarMensaje(' expr ')' SEMI;
 
-condiciones: IF '('condicion ')' '{'expresiones*'}' (otherwise)?;
+// La regla 'condition_if' representa una estructura if-else-if-else
+ordenCondicion: condition_if (otherwiseWithCondition)* (otherwise)?;
+
+condition_if: IF '(' condicion ')' '{' expresiones* '}';
+
+otherwiseWithCondition: ELSE condition_if;
+
 otherwise: ELSE '{' expresiones* '}';
-condicion: 
-expr op=(MAYORQUE | MENORQUE| MAYORIGUAL | MENORIGUAL| DOBLEIGUAL|NEGACION)expr
-| VERDADERO;
 
 
+condicion: expr op=(MAYORQUE | MENORQUE | MAYORIGUAL | MENORIGUAL | DOBLEIGUAL | NEGACION) expr;
 
 // La regla 'tipo' representa los diferentes tipos de datos que pueden tener las variables
 tipo:
@@ -60,8 +64,8 @@ expr: expr op=('*' | '/') expr # MulDiv
 | '(' expr ')' #parens
 ;
 
-IF: 'condition';
-ELSE: 'otherwise';
+IF: 'if';
+ELSE: 'else';
 STRING: '"' (~["])* '"';
 MAYORQUE: '>';
 MENORQUE: '<';
@@ -69,4 +73,5 @@ MAYORIGUAL: '>=';
 MENORIGUAL: '<=';
 DOBLEIGUAL: '==';
 NEGACION: '!=';
-VERDADERO: 'verdad';
+VERDADERO: 'true';
+FALSE: 'false';

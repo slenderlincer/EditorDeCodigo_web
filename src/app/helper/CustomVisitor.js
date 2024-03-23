@@ -137,46 +137,72 @@ export default class CustomVisitor extends CodeFileVisitor {
 			this.prints.push(valor);
 			return this.visitChildren(ctx);
 	}
-
-	// Visit a parse tree produced by CodeFileParser#Condiciones.
-	visitCondiciones(ctx) {
-		// Obtener la única condición dentro de la regla condiciones
-		let condicion = ctx.condicion();
-		// Visitamos y evaluamos la condición
-		let condicionCumplida = this.visitCondicion(condicion);
-
-		// Verificar si la condición se cumple
-		if (condicionCumplida) {
-			// Si la condición se cumple, visitamos y ejecutamos las expresiones dentro del cuerpo del if
-			let expresionesCondicion = ctx.expresiones();
-
-			// Visitamos las expresiones dentro del cuerpo del if
-			this.visit(expresionesCondicion);
-		}else if(ctx.otherwise()){
-			let expresionesElse = ctx.otherwise().expresiones();
-
-			this.visit(expresionesElse)
+	
+	visitOrdenCondicion(ctx) {
+		// Primero, visitamos el nodo condition_if
+		const executed = this.visit(ctx.condition_if());
+	
+		// Si se ejecutó algún bloque, evitamos la ejecución de los siguientes
+		if (executed) return;
+	
+		// Luego, visitamos los nodos otherwiseWithCondition, si los hay
+		for (let i = 0; i < ctx.otherwiseWithCondition().length; i++) {
+			const executed = this.visit(ctx.otherwiseWithCondition(i));
+			if (executed) return;
 		}
-		return;
+	
+		// Finalmente, visitamos el nodo otherwise, si existe
+		if (ctx.otherwise()) {
+			this.visit(ctx.otherwise());
+		}
 	}
+	
+	visitCondition_if(ctx) {
+		// Evaluamos la condición
+		const conditionResult = this.visitCondicion(ctx.condicion());
+	
+		// Si la condición es verdadera, ejecutamos el bloque de código
+		if (conditionResult) {
+			this.visit(ctx.expresiones());
+			return true; // Indicamos que este bloque se ejecutó
+		}
+		return false; // Indicamos que este bloque no se ejecutó
+	}
+	
+	visitOtherwiseWithCondition(ctx) {
+		// Evaluamos la condición asociada al else if
+		const conditionResult = this.visitCondicion(ctx.condition_if().condicion());
+	
+		// Si la condición es verdadera, ejecutamos el bloque de código
+		if (conditionResult) {
+			this.visit(ctx.condition_if().expresiones());
+			return true; // Indicamos que este bloque se ejecutó
+		}
+		return false; // Indicamos que este bloque no se ejecutó
+	}
+	
+	visitOtherwise(ctx) {
+		// Ejecutamos el bloque de código del else
+		this.visit(ctx.expresiones());
+		return true; // Indicamos que este bloque se ejecutó
+	}
+	
+		
 	// Visit a parse tree produced by CodeFileParser#condicion.
-visitCondicion(ctx) {
-    // Si la expresión es directamente `true`
-    if (ctx.VERDADERO) {
-        return true;
-    } else if (ctx.op) { // Si hay un operador
-        // Acceder a la expresión izquierda de la condición
-        let leftExpr = this.visit(ctx.expr(0));
+	visitCondicion(ctx) {
+			// Acceder al operador de comparación
+			const operator = ctx.op.text;
+			console.log(operator)
 
-        // Acceder al operador de comparación
-        let operator = ctx.op.text;
-
-        // Acceder a la expresión derecha de la condición
-        let rightExpr = this.visit(ctx.expr(1));
-
-        // Realizar la comparación según el operador
-        switch (operator) {
-            case '>':
+			// Acceder a la expresión izquierda de la condición
+			const leftExpr = this.visit(ctx.expr(0));
+			
+			// Acceder a la expresión derecha de la condición
+			const rightExpr = this.visit(ctx.expr(1));
+			
+			// Realizar la comparación según el operador
+			switch (operator) {
+			case '>':
                 return leftExpr > rightExpr;
             case '<':
                 return leftExpr < rightExpr;
@@ -188,19 +214,10 @@ visitCondicion(ctx) {
                 return leftExpr == rightExpr;
             case '!=':
                 return leftExpr != rightExpr;
-            default:
-                throw new Error("Operador de comparación no válido: " + operator);
-        }
-    } else {
-        throw new Error("Expresión de condición no válida");
-    }
-}
-	
-	// Visit a parse tree produced by CodeFileParser#else.
-	visitElse(ctx) {
-		return this.visitChildren(ctx);
+			default:
+            	throw new Error("Operador de comparación no válido: " + operator);
+			}
 	}
-
 	// Visit a parse tree produced by CodeFileParser#tipo.
 	visitTipo(ctx) {
 		return this.visitChildren(ctx);
