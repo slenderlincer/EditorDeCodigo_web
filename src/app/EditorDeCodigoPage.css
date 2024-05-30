@@ -15,35 +15,19 @@ body {
   margin-bottom: 20px;
 }
 
+.editores-container {
+  display: flex;
+  padding: 20px;
+}
+
 .editor-wrapper {
-  margin-bottom: 20px;
+  margin-right: 20px; /* Espacio entre los editores */
 }
 
 .codigo-editor {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
-.analizar-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
-}
-.limpiar-button{
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
 .resultado-container {
   margin-top: 20px;
 }

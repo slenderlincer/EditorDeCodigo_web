@@ -1,77 +1,73 @@
 grammar CodeFile;
 
-// Importa las reglas del lexer que se usarán en este parser
-import LexerRules;
+import lexerRulesCV;
 
 // La regla de inicio de la gramática
-start: INSERT CODE '{' content '}';
+start: INSERT CODE ALLAVE content CLLAVE; 
 
 // La regla 'content' representa el contenido dentro de las llaves
-content: expresiones*;
+content: expresiones*?;
 
-// La regla 'expresiones' representa las diferentes formas de expresiones
+// La regla 'expresiones' representa las diferentes formas de expresiones:
 expresiones:
             declaraciones
             |
-            asignaciones
+            assignament
             |
             imprimir
             |
-            ordenCondicion
+            ordencondicional
+            |
+            while
             ;
 
 // La regla 'declaraciones' representa declaraciones de variables
 declaraciones:
-            tipo ID SEMI                                                    #declaracion
-            |
-            tipo ID '=' expr SEMI	                              #declaracionasignacion
+            tipo ID  (EQUALS expr)? SEMI                                         #declaracion
             ;
 
 // La regla 'asignaciones' representa las asignaciones de valores a variables
-asignaciones: ID '=' expr SEMI
+assignament: ID EQUALS expr SEMI  #asignaciones
+|
+ID com=('+='|'-='|'*='|'/='|'%=') expr? SEMI  #asigna
+|
+ID com=('--'|'++') expr? SEMI  #incremento 
 ;
 
 // La regla 'imprimir' representa la instrucción para imprimir mensajes
-imprimir: 'MostrarMensaje(' expr ')' SEMI;
-
-// La regla 'condition_if' representa una estructura if-else-if-else
-ordenCondicion: condition_if (otherwiseWithCondition)* (otherwise)?;
-
-condition_if: IF '(' condicion ')' '{' expresiones* '}';
-
-otherwiseWithCondition: ELSE condition_if;
-
-otherwise: ELSE '{' expresiones* '}';
-
-
-condicion: expr op=(MAYORQUE | MENORQUE | MAYORIGUAL | MENORIGUAL | DOBLEIGUAL | NEGACION) expr;
+imprimir: PRINT APARENTESIS expr  CPARENTESIS SEMI;
 
 // La regla 'tipo' representa los diferentes tipos de datos que pueden tener las variables
-tipo:
-    'margit'
-    |
-    'radahn'
-    |
-    'godrick'
-    ;
+tipo: ('margit' | 'radahn' |'godrick'); 
 
 // La regla 'expr' representa las expresiones matemáticas y valores
-expr: expr op=('*' | '/') expr # MulDiv
-| expr op=('+' | '-') expr #AddSub
-| INT #int
-| ID #id 
-| STRING #string
-| '(' expr ')' #parens
+expr: APARENTESIS expr CPARENTESIS #parens
+    | expr op=(MUL | DIV | MOD) expr # MulDiv
+    | expr op=(ADD | SUB) expr #AddSub 
+    | expr COMA expr #StringAnid
+    | NEGAN expr #negacionExpr  
+    | op=('+'|'-') expr #SignNumber
+    | operator=('<'|'>'|'<='|'>=') #condition
+    | operator=('=='|'!='|'&&'|'||'|'true'|'false'| '!true'|'!false')  #condition
+    | expr operator=('<'|'>'|'<='|'>=') expr #condition
+    | expr operator=('=='|'!='|'&&'|'||'|'true'|'false'| '!true'|'!false') expr #condition
+    | INT #int
+    | ID #id 
+    | STRING #string
+    | FLOAT #float
+    | CHAR #char 
 ;
 
-IF: 'if';
-ELSE: 'else';
-STRING: '"' (~["])* '"';
-MAYORQUE: '>';
-MENORQUE: '<';
-MAYORIGUAL: '>=';
-MENORIGUAL: '<=';
-DOBLEIGUAL: '==';
-NEGACION: '!=';
-VERDADERO: 'true';
-FALSE: 'false';
+// La regla 'condition_if' representa una estructura if-else-if-else
+ordencondicional: condicional condicional_elseif* condicional_else?;
+condicional: IF APARENTESIS expr  CPARENTESIS ALLAVE expresiones* CLLAVE;
+condicional_elseif: ELSE condicional;
+condicional_else: ELSE ALLAVE expresiones* CLLAVE;
+
+while: WHILE APARENTESIS (expr) CPARENTESIS ALLAVE expresiones* CLLAVE; 
+
+INSERT: 'iniciar';
+CODE: 'codigo'; 
+MOD: '%';
+COMA: ',';
+NEGAN: '!';
